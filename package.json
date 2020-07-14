@@ -1,0 +1,26 @@
+{
+  "name": "products-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "nodemon /server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HR-SDC-CANOPUS/Products-API.git"
+  },
+  "author": "Shannon Connolly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HR-SDC-CANOPUS/Products-API/issues"
+  },
+  "homepage": "https://github.com/HR-SDC-CANOPUS/Products-API#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
+}
