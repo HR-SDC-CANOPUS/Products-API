@@ -1,0 +1,15 @@
+version: "3.8"
+
+services: 
+  web:
+    build: .
+    ports: 
+      - "8080:8080"
+    
+  db:
+    image: "postgres:9.4"
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: products
