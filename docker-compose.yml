@@ -7,11 +7,14 @@ services:
       - "3000:3000"
     volumes: 
       - .:/products-api
-    
+
   db:
-    image: "postgres:9.4"
-    restart: always
+    build: ./db
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - ./testdata:/var/lib/postgresql/data
     environment:
+      POSTGRES_DB: postgres
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: products

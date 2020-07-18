@@ -1,14 +1,17 @@
 const { Client } = require("pg");
 
 const client = new Client({
-  host: "localhost",
+  host: "products-api_db_1",
   port: 5432,
   user: "admin",
-  database: "products",
+  database: "postgres",
   password: "password",
 });
 
-const connection = client.connect();
+const connection = client
+  .connect()
+  .then(() => console.log("connected"))
+  .catch((err) => console.log(err));
 
 module.exports = connection;
 
