@@ -1,5 +1,5 @@
 const axios = require("axios");
-const pool = require("../.././db/index");
+const pool = require("../connection");
 
 module.exports = {
   readList: function (page = 1, count = 5) {
@@ -53,9 +53,13 @@ module.exports = {
           FROM products
           where products.id = $1 
         ) t`;
-        const result = client.query(query, [productId]);
-        client.release();
-        return result;
+        return client
+          .query(query, [productId])
+          .then((res) => {
+            client.release();
+            return res;
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   },
