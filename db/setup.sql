@@ -1,3 +1,7 @@
+-- CREATE DATABASE products;
+
+-- \c products;
+
 CREATE EXTENSION hstore;
 
 CREATE TABLE products (
@@ -6,8 +10,14 @@ CREATE TABLE products (
     slogan TEXT,
     description TEXT, 
     category TEXT, 
-    default_price INTEGER NOT NULL,
-    features hstore
+    default_price INTEGER NOT NULL
+);
+
+CREATE TABLE features (
+    id SERIAL PRIMARY KEY, 
+    current_product_id INTEGER, 
+    feature TEXT, 
+    value TEXT
 );
 
 CREATE TABLE styles (
@@ -16,9 +26,21 @@ CREATE TABLE styles (
     name TEXT,
     sale_price TEXT,
     original_price INTEGER,
-    default_style BOOLEAN,
-    photos hstore,
-    skus hstore
+    default_style BOOLEAN
+);
+
+CREATE TABLE photos (
+    id SERIAL PRIMARY KEY, 
+    styleId INTEGER, 
+    url TEXT, 
+    thumbnail_url TEXT
+);
+
+CREATE TABLE skus (
+    id SERIAL PRIMARY KEY, 
+    styleId INTEGER,
+    size TEXT,
+    quantity SMALLINT
 );
 
 /*this table needs work*/

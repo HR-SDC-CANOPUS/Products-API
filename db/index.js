@@ -1,21 +1,12 @@
-const { Client } = require("pg");
+const { Pool } = require("pg");
 
-const client = new Client({
-  host: "products-api_db_1",
+const pool = new Pool({
+  host: "db",
   port: 5432,
   user: "admin",
   database: "postgres",
   password: "password",
+  max: 20,
 });
 
-const connection = client
-  .connect()
-  .then(() => console.log("connected"))
-  .catch((err) => console.log(err));
-
-module.exports = connection;
-
-// client.query("SELECT $1::text as message", ["Hello world!"], (err, res) => {
-//   console.log(err ? err.stack : res.rows[0].message); // Hello World!
-//   client.end();
-// });
+module.exports = pool;
