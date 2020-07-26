@@ -3,7 +3,7 @@ const {
   readProduct,
   readStyles,
   readRelated,
-} = require(".././models/");
+} = require("../models/");
 
 module.exports = {
   getList: function (req, res) {
@@ -19,29 +19,38 @@ module.exports = {
   },
 
   getProduct: function (req, res) {
-    console.log("req params", req.params);
     const { product_id } = req.params;
     readProduct(product_id)
       .then((results) => {
         res.send(results.rows[0]);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
   },
 
   getStyles: function (req, res) {
-    console.log("req params", req.params);
-    readStyles()
+    const { product_id } = req.params;
+    readStyles(product_id)
       .then((results) => {
-        res.json(results.rows);
+        res.json(results.rows[0]);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
   },
 
   getRelated: function (req, res) {
-    readRelated()
+    const { product_id } = req.params;
+    readRelated(product_id)
       .then((results) => {
-        res.json(results.rows);
+        res.json(results);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
   },
 };
