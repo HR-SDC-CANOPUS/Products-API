@@ -22,7 +22,7 @@ module.exports = {
     const { product_id } = req.params;
     readProduct(product_id)
       .then((results) => {
-        res.send(results.rows[0]);
+        res.send(results);
       })
       .catch((err) => {
         console.error(err);
@@ -34,7 +34,7 @@ module.exports = {
     const { product_id } = req.params;
     readStyles(product_id)
       .then((results) => {
-        res.json(results.rows[0]);
+        res.json(results);
       })
       .catch((err) => {
         console.error(err);

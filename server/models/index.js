@@ -17,21 +17,21 @@ module.exports = {
 
   readProduct: function (productId) {
     return pool.connect().then((client) => {
-      const query = `SELECT products.id, products.name, products.slogan, products.description, products.category, products.default_price,
-            (
-            SELECT array_to_json(array_agg(row_to_json(d)))
-            FROM (
-              SELECT feature, value FROM features
-              WHERE features.current_product_id = products.id
-            ) d
-          ) AS features
-          FROM products
-          WHERE products.id = $1 `;
+      const query = `select row_to_json(t)
+      from (
+        select products.id, products.name, products.slogan, products.description, products.category, products.default_price,
+          (
+            select features_and_values from features
+            where features.current_product_id = products.id
+        ) as features
+        from products
+        where products.id = $1
+      ) t`;
       return client
         .query(query, [productId])
         .then((res) => {
           client.release();
-          return res;
+          return res.rows[0].row_to_json;
         })
         .catch((err) => {
           client.release();
@@ -42,35 +42,32 @@ module.exports = {
 
   readStyles: function (productId) {
     return pool.connect().then((client) => {
-      const query = `SELECT row_to_json(t)
-        FROM (
-          SELECT products.id,
+      const query = `select row_to_json(t)
+      from (
+        select products.id,
+          (
+          select array_to_json(array_agg(row_to_json(d)))
+          from (
+            select styles.style_id, styles.name, styles.original_price, styles.sale_price, styles.default_style, (
+                select photos_and_thumbnails from photos
+                where photos.style_id = styles.style_id
+            ) as photos,
             (
-            SELECT array_to_json(array_agg(row_to_json(d)))
-            FROM (
-              SELECT styles.style_id, styles.name, styles.original_price, styles.sale_price, styles.default_style, (
-                SELECT array_to_json(array_agg(row_to_json(d)))
-                FROM (
-                  SELECT photos.url, photos.thumbnail_url FROM photos
-                  WHERE photos.style_id = styles.style_id
-                ) d
-              ) AS photos,
-              (
-                SELECT json_object_agg(skus.size, skus.quantity) FROM skus
-                WHERE skus.style_id = styles.style_id
-              ) AS skus
-              FROM styles
-              WHERE styles.product_id = products.id
-            ) d
-          ) AS results
-          FROM products
-          WHERE products.id = $1
-        ) t`;
+              select size_and_quantity from skus
+              where skus.style_id = styles.style_id
+            ) as skus
+            from styles
+            where styles.product_id = products.id
+          ) d
+        ) as results
+        from products
+        where products.id = $1
+      ) t`;
       return client
         .query(query, [productId])
         .then((res) => {
           client.release();
-          return res;
+          return res.rows[0].row_to_json;
         })
         .catch((err) => {
           client.release();
