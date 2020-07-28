@@ -1,14 +1,19 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+require("dotenv").config();
 const bodyParser = require("body-parser").json();
-const port = 3000;
 const router = require("./routes.js");
 
 app.use(morgan("dev"));
 app.use(bodyParser);
 app.use("/products", router);
 
-app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(process.env.LOCAL_SERVER_PORT, () =>
+  console.log(
+    `Example app listening at http://` +
+      process.env.WEB_SERVER_HOST +
+      ":" +
+      process.env.LOCAL_SERVER_PORT
+  )
 );
