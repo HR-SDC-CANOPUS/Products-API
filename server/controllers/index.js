@@ -10,7 +10,7 @@ module.exports = {
     const { page, count } = req.query;
     readList(page, count)
       .then((results) => {
-        res.send(results.rows);
+        res.send(results);
       })
       .catch((err) => {
         console.error(err);

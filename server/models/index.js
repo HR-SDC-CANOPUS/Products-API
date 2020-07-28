@@ -3,16 +3,20 @@ const pool = require("../connection");
 
 module.exports = {
   readList: function (page = 1, count = 5) {
-    return pool
-      .connect()
-      .then((client) => {
-        const query = `SELECT * FROM products
+    return pool.connect().then((client) => {
+      const query = `SELECT * FROM products
         LIMIT $2 OFFSET $1`;
-        const result = client.query(query, [page * count - count, count]);
-        client.release();
-        return result;
-      })
-      .catch((err) => console.log(err));
+      return client
+        .query(query, [page * count - count, count])
+        .then((res) => {
+          client.release();
+          return res.rows[0];
+        })
+        .catch((err) => {
+          client.release();
+          throw err;
+        });
+    });
   },
 
   readProduct: function (productId) {
