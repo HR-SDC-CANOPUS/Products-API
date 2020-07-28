@@ -9,7 +9,7 @@ app.use(morgan("dev"));
 app.use(bodyParser);
 
 app.get("/loaderio-4094c76d455339f4f581b7fb15827e9c", (req, res) => {
-  res.sendFile("loaderio.txt");
+  res.sendFile("./loaderio.txt");
 });
 app.use("/products", router);
 
