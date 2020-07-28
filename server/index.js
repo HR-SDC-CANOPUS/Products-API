@@ -8,7 +8,7 @@ const router = require("./routes.js");
 app.use(morgan("dev"));
 app.use(bodyParser);
 
-app.get("/loaderio-c244659dba8e7cb0be8aacc396430c64", (req, res) => {
+app.get("/loaderio-4094c76d455339f4f581b7fb15827e9c", (req, res) => {
   res.sendFile("loaderio.txt");
 });
 app.use("/products", router);
