@@ -31,7 +31,7 @@ CREATE TABLE styles (
 
 CREATE TABLE photos (
     id SERIAL PRIMARY KEY, 
-    styleId INTEGER, 
+    style_id INTEGER, 
     url TEXT, 
     thumbnail_url TEXT
 );

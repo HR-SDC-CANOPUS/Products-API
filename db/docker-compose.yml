@@ -1,0 +1,14 @@
+version: "3.3"
+
+services: 
+
+  db:
+    image: postgres:alpine
+    ports: 
+      - ${LOCAL_DB_PORT}:${DOCKER_DB_PORT}
+    volumes: 
+      - ./testdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}

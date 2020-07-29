@@ -16,64 +16,64 @@ const csvStringifier = createCsvStringifier({
 
 var combinedStream = CombinedStream.create();
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xaa.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xaa1.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xab.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xab.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xac.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xac.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xad.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xad.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xae.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xae.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xaf.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xaf.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xag.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xag.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xah.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xah.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xai.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xai.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xaj.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xaj.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xak.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xak.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xal.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xal.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xam.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xam.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xan.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xan.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xao.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xao.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xap.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xap.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xaq.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xaq.csv"))
 );
 combinedStream.append(
-  fs.createReadStream(path.join(__dirname, "../../../test/xar.csv"))
+  fs.createReadStream(path.join(__dirname, "../../../test-photos/xar.csv"))
 );
 // let readStream = fs.createReadStream(
 //   path.join(__dirname, "../../../test/xaa.csv")
 // );
 let writeStream = fs.createWriteStream(
-  path.join(__dirname, "../../../test/combined.csv")
+  path.join(__dirname, "../../../test-photos/combined.csv")
 );
 
 class CSVCleaner extends Transform {
@@ -91,6 +91,7 @@ class CSVCleaner extends Transform {
       }
     }
     // adds quotes to thumbnail url string
+    // console.log(chunk);
     if (chunk.thumbnail_url.charAt(chunk.thumbnail_url.length - 1) !== '"') {
       chunk.thumbnail_url += '"';
     }
